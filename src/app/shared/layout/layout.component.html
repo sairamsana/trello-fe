@@ -15,9 +15,6 @@
 
     <span class="navbar-spacer"></span>
 
-  
-
-
     <button mat-button [matMenuTriggerFor]="userMenu">
       <mat-icon>person</mat-icon>
       <span fxShow fxHide.xs>
@@ -49,14 +46,11 @@
         <h3 mat-subheader>Trello</h3>
 
         <a mat-list-item [routerLink]="['/dashboard/default']" routerLinkActive="active">
-          <!-- <mat-icon mat-list-icon>
-            dashboard
-          </mat-icon> -->
+        
           <p mat-line> Dashboard </p>
         </a>
 
         <a mat-list-item [routerLink]="['/login']">
-          <!-- <mat-icon mat-list-icon>exit_to_app</mat-icon> -->
           <p mat-line> Log out </p>
         </a>
 

@@ -1,0 +1,17 @@
+.form-align {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.form-input-align {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px ;
+
+    .text-format {
+        font-size: 12px;
+        font-weight: 400;
+        color: rgb(247, 108, 108);
+    }
+}

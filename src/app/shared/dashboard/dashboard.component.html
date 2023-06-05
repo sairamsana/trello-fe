@@ -14,19 +14,19 @@
           </mat-card-header>
           <mat-card-content class="dashboard-card-content">
             <div *ngIf="list?.cards.length > 0; else elseSpan">
-              <mat-card *ngFor="let card of list.cards" class="dashboard-cards-card">
-                <mat-card-header class="mat-body-strong">
-                  <mat-card-title class="mat-body-strong">
-                    {{card.name}}
+              <mat-card *ngFor="let card of list.cards" class="dashboard-cards-card" >
+                  <mat-card-content>
+                    <span class="text-format">{{card.name}}</span>
+                    <p></p>
+                    <span>{{card.desc  | slice:0:10}}...  </span> <span>{{card.dateLastActivity  | date: 'MMM d, y'}} </span>
                     <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
                       <mat-icon>more_vert</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu" xPosition="before">
-                      <button  mat-menu-item (click)="updateDialog(card)">Update</button>
+                      <button mat-menu-item (click)="updateDialog(card)">Update</button>
                       <button mat-menu-item>Remove</button>
                     </mat-menu>
-                  </mat-card-title>
-                </mat-card-header>
+                  </mat-card-content>
               </mat-card>
             </div>
             <ng-template #elseSpan> No Cards </ng-template>

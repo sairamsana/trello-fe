@@ -19,6 +19,7 @@ export class DashboardComponent {
 
   ngOnInit(): void {
     this.userService.getCardsDetails().subscribe((res) => {
+
       this.cardsList = res;
     })
   }
@@ -31,6 +32,7 @@ export class DashboardComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.cardsList = [];
       this.userService.getCardsDetails().subscribe((res) => {
         this.cardsList = res;
       })
@@ -43,7 +45,9 @@ export class DashboardComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.cardsList = [];
       this.userService.getCardsDetails().subscribe((res) => {
+        console.log(res)
         this.cardsList = res;
       })
     });

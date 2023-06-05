@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { UserServiceService } from 'src/app/service/user-service.service';
 
@@ -25,9 +25,12 @@ export class TrellocardComponent implements OnInit {
   constructor(public dialog: MatDialog, public dialogRef: MatDialogRef<TrellocardComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private userService: UserServiceService) {
     this.createCard = new FormGroup({
-      'name': new FormControl(this.data?.name || null),
-      'desc': new FormControl(this.data?.desc || null),
-      'idList': new FormControl(this.data?.idList || null)
+      'name': new FormControl(this.data?.name || null, [
+        Validators.required,
+        Validators.minLength(4)
+      ]),
+      'desc': new FormControl(this.data?.desc || null, Validators.required),
+      'idList': new FormControl({ value: this.data?.idList || null, disabled: this.data?._id ? true : false }, Validators.required)
     })
   }
 
@@ -38,10 +41,17 @@ export class TrellocardComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.createCard)
-    this.userService.saveCardDetails(this.createCard.value).subscribe((res) => {
-      console.log(res);
-    })
+    if (this.data?._id) {
+      let updateData = { name: this.createCard.value.name, desc: this.createCard.value.desc }
+      this.userService.updateCardDetails(this.data._id, updateData).subscribe((res) => {
+        this.dialogRef.close()
+      })
+    } else {
+      this.userService.saveCardDetails(this.createCard.value).subscribe((res) => {
+        this.dialogRef.close()
+      })
+    }
+
   }
 
 

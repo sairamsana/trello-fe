@@ -9,7 +9,7 @@ export class UserServiceService {
   constructor(private httpClient: HttpClient) { }
   login: boolean = false
   getLoginUserDetails = () => {
-    return this.httpClient.get(apiUrls.GETMEMBER,{withCredentials :true}).pipe((res) => {
+    return this.httpClient.get(apiUrls.GETMEMBER, { withCredentials: true }).pipe((res) => {
       this.login = true;
       console.log(res.toLocaleString)
       return res
@@ -17,15 +17,15 @@ export class UserServiceService {
   }
 
   getCardsDetails = () => {
-    return this.httpClient.get(apiUrls.CARDSCRUD,{withCredentials :true})
+    return this.httpClient.get(apiUrls.CARDSCRUD, { withCredentials: true })
   }
 
-  saveCardDetails = (data:any) => {
-    return this.httpClient.post(apiUrls.CARDSCRUD,data,{withCredentials :true})
+  saveCardDetails = (data: any) => {
+    return this.httpClient.post(apiUrls.CARDSCRUD, data, { withCredentials: true })
   }
 
-  updateCardDetails = (data:any) => {
-    return this.httpClient.post(apiUrls.CARDSCRUD,data,{withCredentials :true})
+  updateCardDetails = (id:string,data: any) => {
+    return this.httpClient.put(apiUrls.CARDSCRUD+"/"+id, data, { withCredentials: true })
   }
 
 
