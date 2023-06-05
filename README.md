@@ -1,5 +1,7 @@
 # Trello API Integration Front end
 
+![Screenshot](dashboard.PNG)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.12.
 
 This project is an integration of trello APi Authentication, Card CRUD Operation
