@@ -1,0 +1,39 @@
+<div class="grid-container">
+  <div class="flex-space-between">
+    <h1 class="mat-h1">Board</h1>
+    <button mat-raised-button (click)="openDialog()">Create Card</button>
+  </div>
+  <div class="grid-container">
+    <mat-grid-list cols="4" rowHeight="1:2">
+      <mat-grid-tile *ngFor="let list of cardsList">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+              {{list.name}}
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div *ngIf="list?.cards.length > 0; else elseSpan">
+              <mat-card *ngFor="let card of list.cards" class="dashboard-cards-card">
+                <mat-card-header class="mat-body-strong">
+                  <mat-card-title class="mat-body-strong">
+                    {{card.name}}
+                    <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu" xPosition="before">
+                      <button  mat-menu-item (click)="updateDialog(card)">Update</button>
+                      <button mat-menu-item>Remove</button>
+                    </mat-menu>
+                  </mat-card-title>
+                </mat-card-header>
+              </mat-card>
+            </div>
+            <ng-template #elseSpan> No Cards </ng-template>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+
+</div>
