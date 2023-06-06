@@ -1,6 +1,12 @@
-<section>
-    <div class="example-label">Basic</div>
-    <div class="example-button-row">
-        <a mat-raised-button color="primary" href="{{urlLink}}" target="_parent">Trello Login</a>
+<div class="grid-container">
+    <div>
+        <mat-card>
+            <mat-card-title>
+                Trello API Login
+            </mat-card-title>
+            <mat-card-content class="text-format">
+                <button mat-raised-button color="primary" (click)="loginClick()" target="_parent">Trello Login</button>
+            </mat-card-content>
+        </mat-card>
     </div>
-</section>
+</div>

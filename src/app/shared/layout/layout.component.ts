@@ -5,6 +5,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { UserServiceService } from 'src/app/service/user-service.service';
 import { Route, Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -25,8 +26,9 @@ export class LayoutComponent {
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private media: MediaMatcher,
     private breakpointObserver: BreakpointObserver,
-    private userService: UserServiceService,
-    private router: Router) {
+    private authService: AuthenticationService,
+    private router: Router
+  ) {
 
     this.mobileQuery = this.media.matchMedia('(max-width: 1000px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -35,11 +37,15 @@ export class LayoutComponent {
   }
 
   ngOnInit(): void {
+    this.authService.getUserName().subscribe((res: any) => {
+      this.userName = res.fullName;
+    })
+  }
 
-    this.userService.getLoginUserDetails().subscribe((res: any) => {
-      console.log(res)
-      if (!res._id) {
-        this.router.navigate(["/login"]);
+  logout(): void {
+    this.authService.logout().subscribe((res: any) => {
+      if (res.status === 'success') {
+        this.router.navigate(['/login'])
       }
     })
   }
@@ -57,6 +63,5 @@ export class LayoutComponent {
       map(result => result.matches),
       shareReplay()
     );
-
 
 }

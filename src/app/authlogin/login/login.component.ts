@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserServiceService } from 'src/app/service/user-service.service';
+import { AuthenticationService } from 'src/app/service/auth.service';
+import apiUrls from '../../constants/api-urls';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -9,18 +11,22 @@ import { UserServiceService } from 'src/app/service/user-service.service';
 })
 export class LoginComponent implements OnInit {
 
-  // urlLink = `https://trello.com/1/authorize?return_url=http://localhost:5000/authenticate&expiration=never&scope=read,write,account&response_type=token&key=9303bee3409b8c827da5aec23a86c644&callback_method=fragment`
-  urlLink = `http://localhost:5000/api/v1/authenticate`
+  urlLink = apiUrls.AUTHENTICATE;
 
-  constructor(private userService:UserServiceService, private router:Router) { }
+  constructor(private authService: AuthenticationService,
+    private router: Router,
+    @Inject(DOCUMENT) private document: Document) { }
 
   ngOnInit(): void {
-    this.userService.getLoginUserDetails().subscribe((res:any) => {
-      if(res._id){
+    this.authService.getLoginUserDetails().subscribe((res: any) => {
+      if (res._id) {
         this.router.navigate(['/dashboard/default'])
       }
     })
+  }
 
+  loginClick(): void {
+    this.document.location.href = this.urlLink;
   }
 
 }

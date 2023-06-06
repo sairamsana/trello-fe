@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
+import { DeleteCardDailogueComponent } from 'src/app/features/delete-card-dailogue/delete-card-dailogue.component';
 import { TrellocardComponent } from 'src/app/features/trellocard/trellocard.component';
 import { UserServiceService } from 'src/app/service/user-service.service';
 
@@ -19,9 +20,21 @@ export class DashboardComponent {
 
   ngOnInit(): void {
     this.userService.getCardsDetails().subscribe((res) => {
-
       this.cardsList = res;
     })
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(TrellocardComponent, {
+      width: '300px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.cardsList = [];
+      this.userService.getCardsDetails().subscribe((res) => {
+        this.cardsList = res;
+      })
+    });
   }
 
 
@@ -39,15 +52,16 @@ export class DashboardComponent {
     });
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(TrellocardComponent, {
+
+  deleteDialog(card: any): void {
+    const dialogRef = this.dialog.open(DeleteCardDailogueComponent, {
       width: '300px',
+      data: card
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.cardsList = [];
       this.userService.getCardsDetails().subscribe((res) => {
-        console.log(res)
         this.cardsList = res;
       })
     });

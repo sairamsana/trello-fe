@@ -18,20 +18,15 @@
     <button mat-button [matMenuTriggerFor]="userMenu">
       <mat-icon>person</mat-icon>
       <span fxShow fxHide.xs>
-        <!-- {{Sai}} -->Sai Ram Sana
+        {{userName}}
       </span>
     </button>
     <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
 
-      <a mat-menu-item [routerLink]="['/account/profile']">
-        <mat-icon>person</mat-icon>
-        <span>Account</span>
-      </a>
-
-      <a mat-menu-item [routerLink]="['/auth/login']">
+      <button mat-menu-item (click)="logout()">
         <mat-icon>exit_to_app</mat-icon>
         <span>Log out</span>
-      </a>
+      </button>
 
     </mat-menu>
 
@@ -46,13 +41,13 @@
         <h3 mat-subheader>Trello</h3>
 
         <a mat-list-item [routerLink]="['/dashboard/default']" routerLinkActive="active">
-        
+
           <p mat-line> Dashboard </p>
         </a>
 
-        <a mat-list-item [routerLink]="['/login']">
+        <!-- <a mat-list-item (click)="logout()">
           <p mat-line> Log out </p>
-        </a>
+        </a> -->
 
       </mat-nav-list>
 

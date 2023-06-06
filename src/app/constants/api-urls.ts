@@ -6,7 +6,9 @@ class APIURL {
 
     CARDSCRUD = this.BASEURL + "card"
 
+    LOGOUT = this.BASEURL + "authenticate/logout"
 
+    AUTHENTICATE = this.BASEURL+ "authenticate"
 }
 
 export default new APIURL() 
